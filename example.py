@@ -1,9 +1,8 @@
 from dsk.api import DeepSeekAPI, AuthenticationError, RateLimitError, NetworkError, APIError
-import sys, os
+import sys
+import os
 from typing import Generator, Dict, Any
-from dotenv import load_dotenv
 
-load_dotenv()
 
 def print_response(chunks: Generator[Dict[str, Any], None, None]) -> None:
     """Helper function to print response chunks in a clean format"""
@@ -30,6 +29,7 @@ def print_response(chunks: Generator[Dict[str, Any], None, None]) -> None:
     print("💬 Response:")
     print(''.join(text_content))
     print()
+
 
 def run_chat_example(api: DeepSeekAPI, title: str, prompt: str, thinking_enabled: bool = True, search_enabled: bool = False) -> None:
     """Run a chat example with error handling"""
@@ -63,10 +63,12 @@ def run_chat_example(api: DeepSeekAPI, title: str, prompt: str, thinking_enabled
         print(f"❌ Unexpected Error: {str(e)}")
         print("Please report this issue if it persists.")
 
+
 def main():
     try:
         # Initialize the API with your auth token
-        api = DeepSeekAPI(os.getenv("DEEPSEEK_AUTH_TOKEN"))
+        api = DeepSeekAPI(
+            "+mzX6SY48LgKHayFNCxQAfarRe8xqVKKxvfqKwi+oNheHF7fJAHGuen5qayACntq")
 
         # # Example 1: With thinking and web search
         # run_chat_example(
@@ -89,7 +91,7 @@ def main():
         run_chat_example(
             api,
             "Example 3: Simple calculation (no thinking)",
-            "What is 2+2?",
+            "What is 2+2? respone in json",
             thinking_enabled=False
         )
 
@@ -99,6 +101,7 @@ def main():
     except Exception as e:
         print(f"\n❌ Fatal Error: {str(e)}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
